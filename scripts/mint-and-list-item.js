@@ -1,4 +1,5 @@
 const { ethers, network } = require("hardhat");
+const { moveBlocks, sleep } = require("../utils/move-blocks");
 
 const PRICE = ethers.utils.parseEther("0.1");
 
@@ -22,12 +23,13 @@ async function mintAndList() {
   console.log("NFT Listed");
 
   if (network.config.chainId === 31337) {
+    await moveBlocks(1, (sleepAmount = 1000));
   }
-
-  mintAndList()
-    .then(() => process.exit(0))
-    .catch((error) => {
-      console.error(error);
-      process.exit(1);
-    });
 }
+
+mintAndList()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
